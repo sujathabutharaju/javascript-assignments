@@ -1,0 +1,64 @@
+<html>
+<head>
+    <style>
+        html {
+            background-color:lightgreen;
+        }
+        .container {
+            display: block;
+        }
+        button {
+            background-color:skyblue;
+            margin:20px;
+            font-style: bold;
+            padding: 15px;
+            font-size: medium;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="completed">completed</button>
+        <button id="pending">Pending</button>
+<div class="row"></div>
+        <div class="forComp"><h3>Completed List :</h3></div>
+        <div class="forPend"><h3>Pending List :</h3></div>
+    </div>
+    </div>
+    <script>
+        let complete = document.querySelector("#completed");
+        let Pending = document.querySelector("#pending");
+        let forCompleteDiv = document.querySelector(".forComp");
+        let forPendingDiv = document.querySelector(".forPend");
+        fetch('https://jsonplaceholder.typicode.com/todos').then(function
+ (data) {
+            console.log(data)
+            return data.json()
+        }).then(function (data) {
+            Pending.addEventListener('click', function () {
+                for (var i = 0; i < data.length; i++) {
+                    var elem = data[i];
+                    if (elem.completed === false) {
+                        let para = document.createElement('p')
+                        let text = elem.title;
+                        para.innerHTML = text;
+                        forPendingDiv.appendChild(para);
+                    }
+                }
+            })
+            complete.addEventListener("click", function () {
+                for (var i = 0; i < data.length; i++) {
+                    var elem = data[i];
+                    if (elem.completed === true) {
+                        let para = document.createElement('p')
+                        let text = elem.title;
+                        para.innerHTML = text;
+                        forCompleteDiv.appendChild(para);
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>
